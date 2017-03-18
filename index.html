@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <title>Products with factory</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="materialize.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+  <script src='bower_components/angular/angular.js'></script>
+  <script src="main.js" charset="utf-8"></script>
+  <script type="text/javascript"></script>
+</head>
+<body >
+<div class="container">
+  <div ng-controller="productController as PC">
+    <fieldset>
+      <legend>Products Controller</legend>
+      <form>
+      <div class="input-field">
+        <input class="validate" id="name" type="text" ng-model="PC.product.name">
+        <label for="name">Name</label>
+      </div>
+      <div class="input-field">
+        <input class="validate" id="price" type="number" ng-model="PC.product.price">
+        <label for="price">Price</label>
+      </div>
+      <input type="submit" class="btn black right" value="Add Product" ng-click="PC.create()">
+      </form>
+      <table class="striped">
+        <thead>
+        <tr>
+          <th data-field="name">Name</th>
+          <th data-field="price">Price</th>
+          <th data-field="qty">Qty Available</th>
+          <th data-field="actions">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="product in PC.products | orderBy: 'price'">
+          <td ng-bind="product.name"></td>
+          <td ng-bind="product.price | currency"></td>
+          <td ng-bind="product.quantity"></td>
+          <td><input type="submit" class="btn red" value="Delete Product" ng-click="PC.productDelete(product)"></td>
+        </tr>
+        </tbody>
+      </table>
+    </fieldset>
+  </div>
+  <div ng-controller="orderController as OC">
+    <br>
+    <fieldset>
+      <legend>Orders Controller</legend>
+      <table class="striped">
+        <thead>
+        <tr>
+          <th data-field="name">Name</th>
+          <th data-field="price">Price</th>
+          <th data-field="qty">Qty Available</th>
+          <th data-field="actions">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="order in OC.orders | orderBy: 'price'">
+          <td ng-bind="order.name"></td>
+          <td ng-bind="order.price | currency"></td>
+          <td ng-bind="order.quantity"></td>
+          <td><input type="submit" class="btn green" value="Buy" ng-click="OC.buy(order)"></td>
+        </tr>
+        </tbody>
+      </table>
+    </fieldset>
+  </div>
+</div>
+</body>
+</html>
